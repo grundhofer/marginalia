@@ -43,7 +43,8 @@ type Resolved = { ok: true; pctx: PersonalContext } | { ok: false; reason: strin
 export async function resolvePersonal($: EngineInterface, cfg: PersonalConfig): Promise<Resolved> {
   if (!cfg.store.trim()) return { ok: false, reason: 'no personal store configured' }
   const repo = await $.session.repo()
-  const root = repo?.root ?? (await $.session.root())
+  let root = repo?.root
+  if (root === undefined) root = await $.session.root()
   const memoryDir = await resolveMemoryDir($, root)
   if (!memoryDir) return { ok: false, reason: 'auto memory is turned off' }
   const home = (await $.env.get('HOME')) ?? ''

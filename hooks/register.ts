@@ -48,7 +48,8 @@ export const register: Register = (on, options) => {
 
   // Fires once per conversation (also after /clear, which has no session.start).
   on('prompt.context', async ($, e, next) => {
-    const { memoryDir } = await (inflight ?? inbound($, cfg))
+    const started = inflight
+    const { memoryDir } = started ? await started : await inbound($, cfg)
     inflight = undefined
     const result = await next(e)
     if (!memoryDir) return result

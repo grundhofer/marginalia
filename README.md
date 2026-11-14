@@ -68,6 +68,54 @@ Options (`/plugin configure marginalia@marginalia`):
 - Claude Code's per-session stamps (`originSessionId`, `modified`) are stripped before a note
   is shared.
 
+## What marginalia reads, writes, runs and sends
+
+Marginalia is a memory tool, so it touches files that Claude reads as instructions. This is everything it
+does outside its own settings.
+
+**Reads.** The notes in Claude Code's auto-memory folder for the current project
+(`~/.claude/projects/<project>/memory/`, or `autoMemoryDirectory`), the notes in `<repo>/.claude/memory/`, and
+the notes in the clone of your personal store. It reads the repository's root and `origin` remote, the
+`autoMemoryEnabled` and `autoMemoryDirectory` settings, and the variables `HOME`, `CLAUDE_CONFIG_DIR`,
+`CLAUDE_CODE_PROJECT_DIR_NAME` and `CLAUDE_CODE_DISABLE_AUTO_MEMORY`. It does not read your conversation.
+
+**Writes.** Only these files:
+
+- notes (`*.md`) and its own block in `MEMORY.md` in the auto-memory folder. Claude reads these as memory at
+  the start of a session, which is the point of the plugin. `/marginalia share` and `unshare` change one
+  line (`share:`) in a note's frontmatter;
+- team notes in `<repo>/.claude/memory/`, and `.claude/memory/README.md` on `/marginalia init`. They are
+  left uncommitted for you to review;
+- your notes in the clone of your personal store, `<config>/marginalia/personal/`.
+
+It never writes code, build files, settings or `CLAUDE.md`.
+
+**Runs.** Two programs, with fixed arguments:
+
+- `rm -f -- <memory folder>/<note>.md` to remove a note that a teammate deleted or that you approved removing.
+  It deletes only plain note file names inside a memory folder;
+- `git` in the personal store's clone, and only when `personalStore` is set: `clone`, `pull --rebase
+  --autostash`, `remote get-url origin`, `add -A -- <project folder>`, `diff --cached --quiet`, `commit` and
+  `push`. Git uses the credentials you already have for that remote (an SSH key or a credential helper);
+  marginalia never reads them.
+
+**Sends.**
+
+- an unauthenticated `GET https://api.github.com/repos/<owner>/<repo>`, only in a repository that has
+  `.claude/memory/`, to learn whether the repository is public (marginalia stays off in public repositories).
+  The answer is kept for a week; while GitHub cannot be reached, it asks again at each session start. Nothing
+  is sent but that address;
+- your notes to your own personal store, through `git push`, when `personalStore` is set.
+
+**Hooks.**
+
+- `session.start` syncs both ways and registers `/marginalia`;
+- `prompt.context` replaces one entry of the first prompt's instruction files, the one for `MEMORY.md`, with
+  the file as it is after the sync (Claude Code reads it before the sync finishes). It changes nothing else;
+- `turn.complete` (main conversation only) checks what Claude wrote and proposes or shares it;
+- `command.run` answers `/marginalia` and passes every other command on unchanged;
+- `ui.render` draws its own pane.
+
 ## Commands
 
 | Command | |

@@ -38,7 +38,9 @@ export async function buildSnapshot($: EngineInterface, cfg: Config, held: PaneD
   let memoryDir = team.ok ? team.ctx.memoryDir : personal.ok ? personal.pctx.memoryDir : null
   if (!memoryDir) {
     const repo = await $.session.repo()
-    memoryDir = await resolveMemoryDir($, repo?.root ?? (await $.session.root()))
+    let root = repo?.root
+    if (root === undefined) root = await $.session.root()
+    memoryDir = await resolveMemoryDir($, root)
   }
   let cost: PaneData['cost'] = null
   let lintIssues = 0

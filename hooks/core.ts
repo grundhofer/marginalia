@@ -324,7 +324,7 @@ const PRIVACY_RULES: readonly { kind: string; pattern: RegExp }[] = [
   { kind: 'Google API key', pattern: /\bAIza[0-9A-Za-z_-]{35}\b/ },
   { kind: 'JSON web token', pattern: /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/ },
   { kind: 'password or secret assignment', pattern: /\b(?:password|passwd|secret|api[_-]?key|token)\s*[:=]\s*["']?[^\s"'`]{8,}/i },
-  { kind: 'invisible or direction-changing character', pattern: /[​-‏‪-‮⁠-⁤⁦-⁩﻿]/ },
+  { kind: 'invisible or direction-changing character', pattern: /[\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\uFEFF]/ },
 ]
 
 /** Looks for what should not leave the machine. Reports the kind and line, never the value. */

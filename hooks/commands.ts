@@ -43,7 +43,9 @@ type Entry = { target: 'team' | 'personal'; pending: Pending }
 
 async function memoryDirHere($: EngineInterface): Promise<string | null> {
   const repo = await $.session.repo()
-  return resolveMemoryDir($, repo?.root ?? (await $.session.root()))
+  let root = repo?.root
+  if (root === undefined) root = await $.session.root()
+  return resolveMemoryDir($, root)
 }
 
 /** Every verb but `sync` and `pane`, which need the sync runs and the pane (see actions.ts). */

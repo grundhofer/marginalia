@@ -212,7 +212,7 @@ describe('privacyScan', () => {
     // Fake secrets are joined at run time so the source holds no secret-shaped literal.
     expect(kinds('AKIA' + 'ABCDEFGHIJKLMNOP')).toEqual(['AWS access key'])
     expect(kinds('-----BEGIN OPENSSH ' + 'PRIVATE KEY-----')).toEqual(['private key'])
-    expect(kinds('zero​width')).toEqual(['invisible or direction-changing character'])
+    expect(kinds('zero\u200Bwidth')).toEqual(['invisible or direction-changing character'])
     expect(privacyScan('ok\nsk-' + 'ant-api03-abcdefghijklmnopqrstuvwx')[0]).toEqual({ kind: 'API key', line: 2 })
   })
   test('lets placeholders and safe examples through', async () => {
