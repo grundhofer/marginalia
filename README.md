@@ -150,3 +150,5 @@ cp <folder outside the repo>/web/icon-512.png .claude-plugin/icon.png
 ## Licence
 
 [GPL-3.0](LICENSE), except the sign and icon: see [NOTICE.md](NOTICE.md).
+
+Privacy: [PRIVACY.md](PRIVACY.md).

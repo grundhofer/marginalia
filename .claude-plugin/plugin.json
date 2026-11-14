@@ -7,7 +7,21 @@
     "name": "grundhofer"
   },
   "license": "GPL-3.0-only",
+  "homepage": "https://github.com/grundhofer/marginalia",
   "repository": "https://github.com/grundhofer/marginalia",
+  "documentationUrl": "https://github.com/grundhofer/marginalia#readme",
+  "supportUrl": "https://github.com/grundhofer/marginalia/issues",
+  "privacyPolicyUrl": "https://github.com/grundhofer/marginalia/blob/main/PRIVACY.md",
+  "keywords": [
+    "memory",
+    "auto-memory",
+    "team",
+    "git",
+    "sync",
+    "knowledge-sharing",
+    "privacy"
+  ],
+  "types": "./types/index.d.ts",
   "userConfig": {
     "teamShare": {
       "type": "string",
@@ -41,6 +55,5 @@
       ],
       "default": "auto"
     }
-  },
-  "types": "./types/index.d.ts"
+  }
 }
