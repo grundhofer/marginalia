@@ -1,0 +1,19 @@
+{
+  "$comment": "Marginalia's sign, drawn by the sebaro product kit. Rebuild the icon as README.md (Icon) says.",
+  "schemaVersion": "1.0",
+  "id": "marginalia",
+  "name": "Marginalia",
+  "tile": "collaboration",
+  "sign": {
+    "glyph": [
+      { "d": "M3.5 7 H13", "paint": "stroke" },
+      { "d": "M3.5 12 H13", "paint": "stroke" },
+      { "d": "M3.5 17 H13", "paint": "stroke" },
+      { "d": "M18 5 H20.5 V19 H18", "paint": "stroke" }
+    ]
+  },
+  "outputs": ["web"],
+  "web": {
+    "manifest": { "lang": "en", "dir": "ltr", "id": "/", "start_url": "/", "scope": "/", "display": "browser" }
+  }
+}

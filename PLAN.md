@@ -236,6 +236,15 @@ Open:
 7. M6: Directory submission. Before that: check that the name `marginalia` is free in the
    portal, add a square PNG icon (the portal takes it only once; made with the sebaro
    blueprint and design system, owner 2026-11-14), and add the install line to the README.
+   **Icon done 2026-11-14:**
+   - The owner picked sign C (three lines and a bracket in the margin) on the `collaboration`
+     tile (petrol), from three drafts rendered with the kit.
+   - Declared in `sebaro.product.json` and drawn by the kit (product_kit 1.3.0, sebaro-blueprint
+     3c0d6f5). `web/icon-512.png` became `.claude-plugin/icon.png`.
+   - The sign and icon are all rights reserved (NOTICE.md), as the kit requires.
+   - Not checked: the sign's distance to other sebaro signs (D33) and the screen against
+     known symbols. Both need the workshop's `signs.py check`.
+   - The install line is in the README.
 
 ## 7. Competitors (scan of 2026-11-14, READMEs and docs only)
 

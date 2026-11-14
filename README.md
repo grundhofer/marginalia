@@ -90,6 +90,15 @@ claude plugin test .
 claude --plugin-dir .
 ```
 
+The icon is drawn by the product kit of the [sebaro](https://github.com/grundhofer/sebaro-blueprint) design
+system from `sebaro.product.json`. To redraw it, with a sebaro copy (`update-copy.mjs --profile website`) and a
+folder that holds Playwright:
+
+```
+SEBARO_PLAYWRIGHT=<folder with playwright> python3 <copy>/product/product_kit.py build sebaro.product.json --copy <copy> --out <folder outside the repo> --render
+cp <folder outside the repo>/web/icon-512.png .claude-plugin/icon.png
+```
+
 ## Licence
 
-[GPL-3.0](LICENSE)
+[GPL-3.0](LICENSE), except the sign and icon: see [NOTICE.md](NOTICE.md).
