@@ -3,7 +3,7 @@ import { command, inbound, outbound, refresh } from './actions'
 import { COMMAND, type Config } from './commands'
 import { indexAsLoaded } from './core'
 import type { ShareMode } from './outbound'
-import { registerPane } from './pane'
+import { renderPane } from './pane'
 import type { InboundSummary } from './sync'
 
 // The sync started at session start. Claude Code may read MEMORY.md for the first prompt's
@@ -26,7 +26,7 @@ export const register: Register = (on, options) => {
     },
   }
 
-  registerPane(on, cfg)
+  on('ui.render', { component: 'Pane', requestId: 'marginalia' }, async ($, e) => renderPane($, e, cfg))
 
   on('session.start', async ($, e, next) => {
     const result = await next(e)

@@ -1,10 +1,9 @@
 // The review pane: what waits to be shared, what is held, and what the memory index costs.
 
 import { atom, read } from 'claude-code'
-import type { EngineInterface, On } from 'claude-code'
+import type { EngineInterface, RenderInput } from 'claude-code'
 import { paneAct, refresh, syncFromPane } from './actions'
-import type { Config } from './commands'
-import { PANE } from './snapshot'
+import { COMMAND, type Config } from './commands'
 
 // The same value snapshot.ts writes. The engine's scan wants each file's state reference
 // spelled in that file, so it is declared here again; keep the tag in step with snapshot.ts.
@@ -24,8 +23,8 @@ async function pressSync($: EngineInterface, cfg: Config): Promise<void> {
   await syncFromPane($, cfg)
 }
 
-export function registerPane(on: On, cfg: Config): void {
-  on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
+/** Draws the pane. register.ts hooks `ui.render` and calls this, so this file declares no hook. */
+export async function renderPane($: EngineInterface, e: RenderInput<'Pane'>, cfg: Config) {
     const { Box, Text, Button, Progress } = $.ui.resolve(e)
     const data = await read($, pane)
     if (!data) {
@@ -96,7 +95,7 @@ export function registerPane(on: On, cfg: Config): void {
 
         <Box flexDirection="column" marginTop={1}>
           <Text dimColor>
-            {data.lintIssues === 0 ? 'Lint: no issues.' : `Lint: ${data.lintIssues} issue(s), see /${PANE} lint`}
+            {data.lintIssues === 0 ? 'Lint: no issues.' : `Lint: ${data.lintIssues} issue(s), see /${COMMAND} lint`}
           </Text>
           <Box flexDirection="row" gap={1}>
             <Button key="sync" label="Sync now" onPress={() => pressSync($, cfg)} />
@@ -106,5 +105,4 @@ export function registerPane(on: On, cfg: Config): void {
         </Box>
       </Box>
     )
-  })
 }
