@@ -1,0 +1,5 @@
+{
+  "name": "marginalia",
+  "owner": { "name": "grundhofer" },
+  "plugins": [{ "name": "marginalia", "source": "./" }]
+}

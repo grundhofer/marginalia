@@ -1,0 +1,46 @@
+{
+  "name": "marginalia",
+  "displayName": "Marginalia",
+  "version": "0.1.0",
+  "description": "Share Claude Code's auto memory with your team through git: team notes live in the repo, private notes stay local, with a privacy check and a visible token cost.",
+  "author": {
+    "name": "grundhofer"
+  },
+  "license": "GPL-3.0-only",
+  "repository": "https://github.com/grundhofer/marginalia",
+  "userConfig": {
+    "teamShare": {
+      "type": "string",
+      "title": "Sharing team notes",
+      "description": "confirm: new or changed team notes wait for /marginalia approve. auto: they are written to .claude/memory/ right away (still uncommitted).",
+      "options": [
+        "confirm",
+        "auto"
+      ],
+      "default": "confirm"
+    },
+    "privacyCheck": {
+      "type": "boolean",
+      "title": "Privacy check",
+      "description": "Scan a note for personal data (local paths, e-mail addresses, keys, tokens) before it is shared.",
+      "default": true
+    },
+    "personalStore": {
+      "type": "string",
+      "title": "Personal store",
+      "description": "Git URL of a private repository for your own notes (for example git@github.com:you/claude-memory.git). Empty switches personal sync off.",
+      "default": ""
+    },
+    "personalSync": {
+      "type": "string",
+      "title": "Syncing personal notes",
+      "description": "auto: personal notes are committed and pushed to your store after each turn. confirm: they wait for /marginalia approve.",
+      "options": [
+        "auto",
+        "confirm"
+      ],
+      "default": "auto"
+    }
+  },
+  "types": "./types/index.d.ts"
+}
