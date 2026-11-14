@@ -1066,8 +1066,8 @@ export const register: Register = (on, options) => {
     return result
   })
 
-  on('command.run', async ($, e, next) => {
-    if (e.command !== COMMAND) return next(e)
-    return { text: await command($, cfg, e.args) }
-  }).catch(($, e, next) => (next.called ? next(e) : { text: `/${COMMAND} failed.` }))
+  // Only /marginalia reaches this hook; every other command passes it by.
+  on('command.run', { command: 'marginalia' }, async ($, e) => ({ text: await command($, cfg, e.args) })).catch(
+    () => ({ text: `/${COMMAND} failed.` }),
+  )
 }
