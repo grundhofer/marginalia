@@ -225,7 +225,7 @@ Open:
      a command's answer by itself, so marginalia's own prefix was removed.
    - Engine rules learned: `$` may only be passed to functions declared at a file's top
      level (or imported), and each file must spell its own `$.state` reference. That is why
-     the code is split into `actions.ts`, `snapshot.ts` and `pane.tsx`.
+     the code was split into `actions.ts`, `snapshot.ts` and `pane.tsx` (later merged into `register.tsx`, see M6).
 6. M5: try it with a teammate on a real repo, and verify onboarding through project
    settings. **Started 2026-11-14:**
    - Installed for the owner at user scope, read straight from this folder.
@@ -245,6 +245,17 @@ Open:
    - Not checked: the sign's distance to other sebaro signs (D33) and the screen against
      known symbols. Both need the workshop's `signs.py check`.
    - The install line is in the README.
+   **Directory checks (2026-11-14, portal validate):**
+   - The directory applies the documented mod rule that `$` may only go to functions declared
+     at the top level of the same file (not to imported ones; `read`/`update` excepted), and
+     that no name in a `.tsx` file may be `h` or `Fragment`. So every function using `$` now
+     lives in `hooks/register.tsx`, and `hooks/core.ts` keeps the logic without `$`. The local
+     `claude plugin validate` of this build did not enforce this.
+   - Literal invisible characters in a regex were replaced with `\u` escapes.
+   - README section "What marginalia reads, writes, runs and sends" answers the policy holds.
+   - The name is not taken, but it is held for review next to the connector "marginal-ai".
+   - The portal says that mods will later be accepted only from Verified organizations; a
+     version live by then stays live, and other versions with a mod can be refused.
 
 ## 7. Competitors (scan of 2026-11-14, READMEs and docs only)
 
